@@ -6,7 +6,6 @@ const {
 const mutations = require('./mutations');
 const queries = require('./queries');
 
-console.log(mutations)
 module.exports = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',

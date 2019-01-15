@@ -1,7 +1,6 @@
 const { GraphQLID, GraphQLNonNull } = require('graphql');
 
 const userType = require('./types/user');
-const getProjection = require('./getProjection');
 const UserModel = require('../models/user');
 
 module.exports = {
