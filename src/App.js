@@ -40,50 +40,56 @@ class App extends Component {
       <ApolloProvider client={client}>
         <div className="App">
           <Query query={GET_CONTACTS}>
-            {({ data, loading, error }) => {
+            {({ data, loading, error, refetch }) => {
               if (loading) return <p>Loading...</p>;
               if (error) return <p>ERROR</p>;
 
-              return data.contacts.map(contact => {
-                return (
-                  <div>
-                    <p>Name: {contact.name}</p>
-                    <p>Email: {contact.email}</p>
-                  </div>
-                );
-              });
+              return (
+                <div>
+                  {data.contacts.map(contact => {
+                    return (
+                      <div>
+                        <p>Name: {contact.name}</p>
+                        <p>Email: {contact.email}</p>
+                      </div>
+                    );
+                  })}
+                  <Mutation
+                    mutation={CREATE_CONTACT}
+                    onCompleted={() => refetch()}>
+                    {(create, { data }) => (
+                      <form
+                        onSubmit={e => {
+                          e.preventDefault();
+                          create({
+                            variables: {
+                              data: {
+                                name: this.state.name,
+                                email: this.state.email
+                              }
+                            }
+                          });
+                        }}>
+                        <label>Name</label>
+                        <input
+                          type="text"
+                          value={this.state.name}
+                          onChange={this.handleNameChange}
+                        />
+                        <label>Email</label>
+                        <input
+                          type="text"
+                          value={this.state.email}
+                          onChange={this.handleEmailChange}
+                        />
+                        <button type="submit">Add Contact</button>
+                      </form>
+                    )}
+                  </Mutation>
+                </div>
+              );
             }}
           </Query>
-          <Mutation mutation={CREATE_CONTACT}>
-            {(create, { data }) => (
-              <form
-                onSubmit={e => {
-                  e.preventDefault();
-                  create({
-                    variables: {
-                      data: {
-                        name: this.state.name,
-                        email: this.state.email
-                      }
-                    }
-                  });
-                }}>
-                <label>Name</label>
-                <input
-                  type="text"
-                  value={this.state.name}
-                  onChange={this.handleNameChange}
-                />
-                <label>Email</label>
-                <input
-                  type="text"
-                  value={this.state.email}
-                  onChange={this.handleEmailChange}
-                />
-                <button type="submit">Add Contact</button>
-              </form>
-            )}
-          </Mutation>
         </div>
       </ApolloProvider>
     );
