@@ -1,8 +1,8 @@
-import express from 'express';
-import graphqlHTTP from 'express-graphql';
-import mongoose from 'mongoose';
+const express = require('express');
+const graphqlHTTP = require('express-graphql');
+const mongoose = require('mongoose');
 
-import schema from './graphql';
+const schema = require('./graphql');
 
 const app = express();
 
