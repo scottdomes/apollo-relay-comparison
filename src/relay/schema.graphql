@@ -9,7 +9,8 @@ type Contact {
 }
 
 type CreateContactPayload {
-  contact: Contact!
+  name: String!
+  email: String
 }
 
 

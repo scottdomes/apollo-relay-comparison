@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash a56b6508ae863349230347746e2caaff
+ * @relayHash 56c6e96044dc72926cec27154c7b2002
  */
 
 /* eslint-disable */
@@ -13,33 +13,29 @@ export type ContactInput = {
   name: string,
   email?: ?string,
 };
-export type RelayAppMutationVariables = {|
+export type CreateContactMutationVariables = {|
   input: ContactInput
 |};
-export type RelayAppMutationResponse = {|
+export type CreateContactMutationResponse = {|
   +createContact: ?{|
-    +contact: {|
-      +name: string,
-      +email: ?string,
-    |}
+    +name: string,
+    +email: ?string,
   |}
 |};
-export type RelayAppMutation = {|
-  variables: RelayAppMutationVariables,
-  response: RelayAppMutationResponse,
+export type CreateContactMutation = {|
+  variables: CreateContactMutationVariables,
+  response: CreateContactMutationResponse,
 |};
 */
 
 
 /*
-mutation RelayAppMutation(
+mutation CreateContactMutation(
   $input: ContactInput!
 ) {
   createContact(input: $input) {
-    contact {
-      name
-      email
-    }
+    name
+    email
   }
 }
 */
@@ -71,29 +67,18 @@ v1 = [
     "plural": false,
     "selections": [
       {
-        "kind": "LinkedField",
+        "kind": "ScalarField",
         "alias": null,
-        "name": "contact",
-        "storageKey": null,
+        "name": "name",
         "args": null,
-        "concreteType": "Contact",
-        "plural": false,
-        "selections": [
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "name",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "email",
-            "args": null,
-            "storageKey": null
-          }
-        ]
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "email",
+        "args": null,
+        "storageKey": null
       }
     ]
   }
@@ -101,13 +86,13 @@ v1 = [
 return {
   "kind": "Request",
   "operationKind": "mutation",
-  "name": "RelayAppMutation",
+  "name": "CreateContactMutation",
   "id": null,
-  "text": "mutation RelayAppMutation(\n  $input: ContactInput!\n) {\n  createContact(input: $input) {\n    contact {\n      name\n      email\n    }\n  }\n}\n",
+  "text": "mutation CreateContactMutation(\n  $input: ContactInput!\n) {\n  createContact(input: $input) {\n    name\n    email\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
-    "name": "RelayAppMutation",
+    "name": "CreateContactMutation",
     "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": v0,
@@ -115,12 +100,12 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "RelayAppMutation",
+    "name": "CreateContactMutation",
     "argumentDefinitions": v0,
     "selections": v1
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'f4ce72b74e494764176b79783539f9f9';
+(node/*: any*/).hash = '436193560bc228f960fa5246502fc39f';
 module.exports = node;
