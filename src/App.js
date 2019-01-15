@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ApolloClient from 'apollo-boost';
-import { ApolloProvider, Query } from 'react-apollo';
+import { ApolloProvider, Query, Mutation } from 'react-apollo';
 
 import gql from 'graphql-tag';
 import './App.css';
@@ -14,11 +14,27 @@ const GET_CONTACTS = gql`
   }
 `;
 
+const CREATE_CONTACT = gql`
+  mutation createContact($data: ContactInput!) {
+    createContact(data: $data)
+  }
+`;
+
 const client = new ApolloClient({
   uri: 'http://localhost:8080/graphql'
 });
 
 class App extends Component {
+  state = { name: '', email: '' };
+
+  handleNameChange = e => {
+    this.setState({ name: e.target.value });
+  };
+
+  handleEmailChange = e => {
+    this.setState({ email: e.target.value });
+  };
+
   render() {
     return (
       <ApolloProvider client={client}>
@@ -38,7 +54,36 @@ class App extends Component {
               });
             }}
           </Query>
-          <button>Add Contact</button>
+          <Mutation mutation={CREATE_CONTACT}>
+            {(create, { data }) => (
+              <form
+                onSubmit={e => {
+                  e.preventDefault();
+                  create({
+                    variables: {
+                      data: {
+                        name: this.state.name,
+                        email: this.state.email
+                      }
+                    }
+                  });
+                }}>
+                <label>Name</label>
+                <input
+                  type="text"
+                  value={this.state.name}
+                  onChange={this.handleNameChange}
+                />
+                <label>Email</label>
+                <input
+                  type="text"
+                  value={this.state.email}
+                  onChange={this.handleEmailChange}
+                />
+                <button type="submit">Add Contact</button>
+              </form>
+            )}
+          </Mutation>
         </div>
       </ApolloProvider>
     );
