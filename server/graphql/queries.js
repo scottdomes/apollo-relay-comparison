@@ -1,20 +1,20 @@
-const { GraphQLID, GraphQLNonNull } = require('graphql');
+const { GraphQLID, GraphQLNonNull, GraphQLList } = require('graphql');
 
-const userType = require('./types/user');
-const UserModel = require('../models/user');
+const contactType = require('./types/contact');
+const ContactModel = require('../models/contact');
 
 module.exports = {
-  user: {
-    type: userType,
-    args: {
-      id: {
-        name: 'id',
-        type: new GraphQLNonNull(GraphQLID)
-      }
-    },
+  contacts: {
+    type: new GraphQLList(contactType),
+    // args: {
+    //   id: {
+    //     name: 'id',
+    //     type: new GraphQLNonNull(GraphQLID)
+    //   }
+    // },
     resolve(root, params) {
-      return UserModel.findOne({ username: 'scotty' })
-        .select({ username: 1, email: 1 })
+      return ContactModel.find()
+        .select({ name: 1, email: 1 })
         .exec();
     }
   }

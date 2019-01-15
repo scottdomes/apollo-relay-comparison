@@ -6,12 +6,12 @@ const {
 } = require('graphql');
 
 module.exports = new GraphQLObjectType({
-  name: 'User',
+  name: 'Contact',
   fields: {
     _id: {
       type: new GraphQLNonNull(GraphQLID)
     },
-    username: {
+    name: {
       type: GraphQLString
     },
     email: {
