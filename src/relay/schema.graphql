@@ -29,4 +29,6 @@ type Query {
     """The ID of an object"""
     id: ID!
   ): Node
+
+  contacts: [Contact]
 }

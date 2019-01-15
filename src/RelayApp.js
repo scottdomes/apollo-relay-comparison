@@ -43,13 +43,21 @@ class App extends Component {
         query={GET_CONTACTS}
         variables={{}}
         render={({ error, props }) => {
+          console.log(props);
           if (error) {
             return <div>Error!</div>;
           }
           if (!props) {
             return <div>Loading...</div>;
           }
-          return <div>User ID: {props.viewer.id}</div>;
+          return props.contacts.map(contact => {
+            return (
+              <div key={contact.name}>
+                <p>Name: {contact.name}</p>
+                <p>Email: {contact.email}</p>
+              </div>
+            );
+          });
         }}
       />
     );

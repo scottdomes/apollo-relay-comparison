@@ -48,7 +48,7 @@ class App extends Component {
                 <div>
                   {data.contacts.map(contact => {
                     return (
-                      <div>
+                      <div key={contact.name}>
                         <p>Name: {contact.name}</p>
                         <p>Email: {contact.email}</p>
                       </div>
