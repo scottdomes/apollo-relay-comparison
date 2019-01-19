@@ -3,33 +3,95 @@ input ContactInput {
   email: String
 }
 
-type Contact {
-  name: String!
-  email: String
-}
-
 type CreateContactPayload {
-  name: String!
-  email: String
+  contactEdge: ContactEdge
 }
-
 
 type Mutation {
   createContact(input: ContactInput!): CreateContactPayload
 }
 
-"""An object with an ID"""
+"""
+An object with an ID
+"""
 interface Node {
-  """The id of the object."""
+  """
+  The id of the object.
+  """
   id: ID!
 }
 
 type Query {
-  """Fetches an object given its ID"""
+  """
+  Fetches an object given its ID
+  """
   node(
-    """The ID of an object"""
+    """
+    The ID of an object
+    """
     id: ID!
   ): Node
 
   contacts: [Contact]
+}
+
+type Contact implements Node {
+  id: ID!
+  name: String!
+  email: String
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+}
+
+"""
+An edge in a connection.
+"""
+type ContactEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Contact
+
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+A connection to a list of items.
+"""
+type ContactConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [ContactEdge]
 }

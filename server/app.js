@@ -1,10 +1,12 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
-const mongoose = require('mongoose');
+const MongoClient = require('mongodb').MongoClient;
 
 const schema = require('./graphql');
 
 const app = express();
+
+const db = MongoClient.connect('mongodb://localhost/graphql');
 
 app.use('/graphql', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -22,14 +24,16 @@ app.use('/graphql', function(req, res, next) {
 // GraphqQL server route
 app.use(
   '/graphql',
-  graphqlHTTP(req => ({
+  graphqlHTTP(async req => ({
     schema,
-    pretty: true
+    pretty: true,
+    context: {
+      mongodb: await db
+    }
   }))
 );
 
 // Connect mongo database
-mongoose.connect('mongodb://localhost/graphql');
 
 // start server
 const server = app.listen(8080, () => {

@@ -4,8 +4,15 @@ import graphql from 'babel-plugin-relay/macro';
 const mutation = graphql`
   mutation CreateContactMutation($input: ContactInput!) {
     createContact(input: $input) {
-      name
-      email
+      contactEdge {
+        __typename
+        cursor
+        node {
+          id
+          email
+          name
+        }
+      }
     }
   }
 `;
@@ -15,7 +22,10 @@ function commit(environment, name, email) {
   return commitMutation(environment, {
     mutation,
     variables: {
-      input: { name, email }
+      input: {
+        name,
+        email,
+      }
     }
   });
 }

@@ -9,6 +9,7 @@ import './App.css';
 const GET_CONTACTS = graphql`
   query RelayAppQuery {
     contacts {
+      id
       name
       email
     }
@@ -44,7 +45,7 @@ class App extends Component {
             <div>
               {props.contacts.map(contact => {
                 return (
-                  <div key={contact.name}>
+                  <div key={contact.id}>
                     <p>Name: {contact.name}</p>
                     <p>Email: {contact.email}</p>
                   </div>

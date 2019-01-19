@@ -10,6 +10,7 @@ const GET_CONTACTS = gql`
     contacts {
       name
       email
+      id
     }
   }
 `;
@@ -48,7 +49,7 @@ class App extends Component {
                 <div>
                   {data.contacts.map(contact => {
                     return (
-                      <div key={contact.name}>
+                      <div key={contact.id}>
                         <p>Name: {contact.name}</p>
                         <p>Email: {contact.email}</p>
                       </div>

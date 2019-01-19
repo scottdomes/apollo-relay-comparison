@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 0a81138c726afeac30f7a6b02b60f943
+ * @relayHash c101e80a8d06f898b806b4dbdecbb7c6
  */
 
 /* eslint-disable */
@@ -12,6 +12,7 @@ import type { ConcreteRequest } from 'relay-runtime';
 export type RelayAppQueryVariables = {||};
 export type RelayAppQueryResponse = {|
   +contacts: ?$ReadOnlyArray<?{|
+    +id: string,
     +name: string,
     +email: ?string,
   |}>
@@ -26,6 +27,7 @@ export type RelayAppQuery = {|
 /*
 query RelayAppQuery {
   contacts {
+    id
     name
     email
   }
@@ -43,6 +45,13 @@ var v0 = [
     "concreteType": "Contact",
     "plural": true,
     "selections": [
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "id",
+        "args": null,
+        "storageKey": null
+      },
       {
         "kind": "ScalarField",
         "alias": null,
@@ -65,7 +74,7 @@ return {
   "operationKind": "query",
   "name": "RelayAppQuery",
   "id": null,
-  "text": "query RelayAppQuery {\n  contacts {\n    name\n    email\n  }\n}\n",
+  "text": "query RelayAppQuery {\n  contacts {\n    id\n    name\n    email\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -84,5 +93,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e5d3600a0d4f75df02ed126304e05b36';
+(node/*: any*/).hash = '9db116a00e9a2243f51488906067f109';
 module.exports = node;

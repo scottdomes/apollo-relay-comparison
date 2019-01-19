@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 56c6e96044dc72926cec27154c7b2002
+ * @relayHash ad82aa3d0282cc817e69826588ed4878
  */
 
 /* eslint-disable */
@@ -18,8 +18,15 @@ export type CreateContactMutationVariables = {|
 |};
 export type CreateContactMutationResponse = {|
   +createContact: ?{|
-    +name: string,
-    +email: ?string,
+    +contactEdge: ?{|
+      +__typename: string,
+      +cursor: string,
+      +node: ?{|
+        +id: string,
+        +email: ?string,
+        +name: string,
+      |},
+    |}
   |}
 |};
 export type CreateContactMutation = {|
@@ -34,8 +41,15 @@ mutation CreateContactMutation(
   $input: ContactInput!
 ) {
   createContact(input: $input) {
-    name
-    email
+    contactEdge {
+      __typename
+      cursor
+      node {
+        id
+        email
+        name
+      }
+    }
   }
 }
 */
@@ -67,18 +81,61 @@ v1 = [
     "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
+        "kind": "LinkedField",
         "alias": null,
-        "name": "name",
+        "name": "contactEdge",
+        "storageKey": null,
         "args": null,
-        "storageKey": null
-      },
-      {
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "email",
-        "args": null,
-        "storageKey": null
+        "concreteType": "ContactEdge",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "__typename",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "cursor",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "node",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "Contact",
+            "plural": false,
+            "selections": [
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "id",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "email",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "name",
+                "args": null,
+                "storageKey": null
+              }
+            ]
+          }
+        ]
       }
     ]
   }
@@ -88,7 +145,7 @@ return {
   "operationKind": "mutation",
   "name": "CreateContactMutation",
   "id": null,
-  "text": "mutation CreateContactMutation(\n  $input: ContactInput!\n) {\n  createContact(input: $input) {\n    name\n    email\n  }\n}\n",
+  "text": "mutation CreateContactMutation(\n  $input: ContactInput!\n) {\n  createContact(input: $input) {\n    contactEdge {\n      __typename\n      cursor\n      node {\n        id\n        email\n        name\n      }\n    }\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -107,5 +164,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '436193560bc228f960fa5246502fc39f';
+(node/*: any*/).hash = 'ba7580e185c4e2652c9834d5bfa2b13c';
 module.exports = node;

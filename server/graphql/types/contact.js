@@ -8,7 +8,7 @@ const {
 module.exports = new GraphQLObjectType({
   name: 'Contact',
   fields: {
-    _id: {
+    id: {
       type: new GraphQLNonNull(GraphQLID)
     },
     name: {
