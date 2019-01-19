@@ -48,7 +48,8 @@ class App extends Component {
             return <div>Loading...</div>;
           }
 
-          const contacts = props.viewer.allContacts.edges;
+          const edges = props.viewer.allContacts;
+          const contacts = edges || [];
           return (
             <div>
               {contacts.map(contact => {

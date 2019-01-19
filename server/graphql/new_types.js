@@ -41,7 +41,10 @@ const ContactEdge = new GraphQLObjectType({
       type: GraphQLString
     },
     node: {
-      type: Contact
+      type: Contact,
+      resolve(parent) {
+        return parent;
+      }
     }
   })
 });
@@ -51,8 +54,8 @@ const ContactConnection = new GraphQLObjectType({
   fields: () => ({
     edges: {
       type: new GraphQLList(ContactEdge),
-      resolve() {
-        return [];
+      resolve(parent) {
+        return parent.query.toArray();
       }
     },
     pageInfo: {
@@ -65,13 +68,15 @@ export const Viewer = new GraphQLObjectType({
   name: 'Viewer',
   fields: () => ({
     id: {
-      type: new GraphQLNonNull(GraphQLID),
+      type: new GraphQLNonNull(GraphQLID)
     },
     allContacts: {
       type: ContactConnection,
-      resolve() {
-        return {};
-      },
-    },
-  }),
+      resolve(parent, args, { mongodb }) {
+        return {
+          query: mongodb.collection('contacts')
+        };
+      }
+    }
+  })
 });
