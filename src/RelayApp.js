@@ -47,9 +47,11 @@ class App extends Component {
           if (!props) {
             return <div>Loading...</div>;
           }
+
+          const contacts = props.viewer.allContacts.edges;
           return (
             <div>
-              {props.contacts.map(contact => {
+              {contacts.map(contact => {
                 return (
                   <div key={contact.id}>
                     <p>Name: {contact.name}</p>
