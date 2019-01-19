@@ -22,7 +22,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "nodemon --exec babel-node server/app.js",
+    "server": "nodemon --exec babel-node server/index.js",
     "relay": "relay-compiler --src ./src --schema ./src/relay/schema.graphql --watch"
   },
   "eslintConfig": {

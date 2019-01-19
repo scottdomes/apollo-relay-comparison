@@ -8,10 +8,16 @@ import './App.css';
 
 const GET_CONTACTS = graphql`
   query RelayAppQuery {
-    contacts {
-      id
-      name
-      email
+    viewer {
+      allContacts {
+        edges {
+          node {
+            id
+            name
+            email
+          }
+        }
+      }
     }
   }
 `;

@@ -11,8 +11,8 @@ module.exports = new GraphQLSchema({
     name: 'Query',
     fields: queries
   }),
-  mutation: new GraphQLObjectType({
-    name: 'Mutation',
-    fields: mutations
-  })
+  // mutation: new GraphQLObjectType({
+  //   name: 'Mutation',
+  //   fields: mutations
+  // })
 });
