@@ -42,7 +42,6 @@ class App extends Component {
         query={GET_CONTACTS}
         variables={{}}
         render={({ error, props }) => {
-          console.log(props);
           if (error) {
             return <div>Error!</div>;
           }
