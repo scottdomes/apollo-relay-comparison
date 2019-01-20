@@ -96,10 +96,8 @@ type ContactConnection {
   edges: [ContactEdge]
 }
 
-type Viewer implements Node {
-  """The ID of an object"""
-  id: ID!
-  allContacts(after: String, first: Int, before: String, last: Int): ContactConnection
+type Viewer {
+  allContacts: ContactConnection
   totalCount: Int
   completedCount: Int
 }

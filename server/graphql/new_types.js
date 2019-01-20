@@ -19,7 +19,7 @@ export const PageInfo = new GraphQLObjectType({
   }
 });
 
-const Contact = new GraphQLObjectType({
+export const Contact = new GraphQLObjectType({
   name: 'Contact',
   fields: {
     id: {
@@ -49,13 +49,22 @@ const ContactEdge = new GraphQLObjectType({
   })
 });
 
+export const ContactPayload = new GraphQLObjectType({
+  name: 'ContactPayload',
+  fields: {
+    contactEdge: {
+      type: ContactEdge
+    }
+  }
+});
+
 const ContactConnection = new GraphQLObjectType({
   name: 'ContactConnection',
   fields: () => ({
     edges: {
       type: new GraphQLList(ContactEdge),
-      resolve(parent) {
-        return parent.query.toArray();
+      resolve: async parent => {
+        return await parent.query.find().toArray();
       }
     },
     pageInfo: {

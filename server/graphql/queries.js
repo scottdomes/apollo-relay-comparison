@@ -1,4 +1,4 @@
-const { Viewer } = require('./new_types');
+import { Viewer } from './new_types'
 
 module.exports = {
   viewer: {
