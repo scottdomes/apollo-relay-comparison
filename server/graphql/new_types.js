@@ -23,7 +23,10 @@ export const Contact = new GraphQLObjectType({
   name: 'Contact',
   fields: {
     id: {
-      type: new GraphQLNonNull(GraphQLID)
+      type: new GraphQLNonNull(GraphQLID),
+      resolve(parent) {
+        return parent._id.toString();
+      },
     },
     name: {
       type: GraphQLString
@@ -37,9 +40,6 @@ export const Contact = new GraphQLObjectType({
 const ContactEdge = new GraphQLObjectType({
   name: 'ContactEdge',
   fields: () => ({
-    cursor: {
-      type: GraphQLString
-    },
     node: {
       type: Contact,
       resolve(parent) {

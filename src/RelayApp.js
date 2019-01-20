@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import get from 'lodash/get';
 import { QueryRenderer } from 'react-relay';
 import environment from './relay/environment';
 import graphql from 'babel-plugin-relay/macro';
@@ -48,11 +49,11 @@ class App extends Component {
             return <div>Loading...</div>;
           }
 
-          const edges = props.viewer.allContacts;
-          const contacts = edges || [];
+          const contacts = get(props, 'viewer.allContacts.edges', []);
           return (
             <div>
-              {contacts.map(contact => {
+              {contacts.map(edge => {
+                const contact = edge.node;
                 return (
                   <div key={contact.id}>
                     <p>Name: {contact.name}</p>
