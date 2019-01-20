@@ -19,7 +19,6 @@ const mutation = graphql`
 `;
 
 function sharedUpdater(store, viewer, newEdge) {
-  console.log(newEdge);
   const viewerProxy = store.get(viewer.id);
   const conn = ConnectionHandler.getConnection(
     viewerProxy,
@@ -39,7 +38,6 @@ function commit(environment, name, email, viewer) {
       }
     },
     updater: (store, data) => {
-      console.log(store.getRootField('createContact'));
       const payload = store.getRootField('createContact');
       const newEdge = payload.getLinkedRecord('contactEdge');
       sharedUpdater(store, viewer, newEdge);

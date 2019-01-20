@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ApolloClient from 'apollo-boost';
+import get from 'lodash/get';
 import { ApolloProvider, Query, Mutation } from 'react-apollo';
 
 import gql from 'graphql-tag';
@@ -7,17 +8,33 @@ import './App.css';
 
 const GET_CONTACTS = gql`
   query contacts {
-    contacts {
-      name
-      email
-      id
+    viewer {
+      allContacts {
+        edges {
+          node {
+            name
+            email
+            id
+          }
+        }
+      }
     }
   }
 `;
 
 const CREATE_CONTACT = gql`
-  mutation createContact($data: ContactInput!) {
-    createContact(data: $data)
+  mutation createContact($input: ContactInput!) {
+    createContact(input: $input) {
+      contactEdge {
+        __typename
+        cursor
+        node {
+          id
+          email
+          name
+        }
+      }
+    }
   }
 `;
 
@@ -45,9 +62,12 @@ class App extends Component {
               if (loading) return <p>Loading...</p>;
               if (error) return <p>ERROR</p>;
 
+              const contacts = get(data, 'viewer.allContacts.edges', []);
+
               return (
                 <div>
-                  {data.contacts.map(contact => {
+                  {contacts.map(edge => {
+                    const contact = edge.node;
                     return (
                       <div key={contact.id}>
                         <p>Name: {contact.name}</p>
@@ -64,7 +84,7 @@ class App extends Component {
                           e.preventDefault();
                           create({
                             variables: {
-                              data: {
+                              input: {
                                 name: this.state.name,
                                 email: this.state.email
                               }
