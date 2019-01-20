@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import get from 'lodash/get';
+import React from 'react';
 import { QueryRenderer } from 'react-relay';
 import environment from './relay/environment';
 import graphql from 'babel-plugin-relay/macro';
 import CreateContactMutation from './relay/mutations/CreateContactMutation';
-
+import ContactList from './components/ContactList';
+import Form from './components/Form';
 import './App.css';
 
 const GET_CONTACTS = graphql`
@@ -24,73 +24,38 @@ const GET_CONTACTS = graphql`
   }
 `;
 
-class App extends Component {
-  state = { name: '', email: '' };
+const App = () => {
+  return (
+    <QueryRenderer
+      environment={environment}
+      query={GET_CONTACTS}
+      variables={{}}
+      render={({ error, data }) => {
+        if (error) {
+          return <div>Error!</div>;
+        }
+        if (!data) {
+          return <div>Loading...</div>;
+        }
 
-  handleNameChange = e => {
-    this.setState({ name: e.target.value });
-  };
-
-  handleEmailChange = e => {
-    this.setState({ email: e.target.value });
-  };
-
-  render() {
-    return (
-      <QueryRenderer
-        environment={environment}
-        query={GET_CONTACTS}
-        variables={{}}
-        render={({ error, props }) => {
-          if (error) {
-            return <div>Error!</div>;
-          }
-          if (!props) {
-            return <div>Loading...</div>;
-          }
-
-          const contacts = get(props, 'viewer.allContacts.edges', []);
-          return (
-            <div>
-              {contacts.map(edge => {
-                const contact = edge.node;
-                return (
-                  <div key={contact.id}>
-                    <p>Name: {contact.name}</p>
-                    <p>Email: {contact.email}</p>
-                  </div>
+        return (
+          <div>
+            <ContactList edges={data.viewer.allContacts.edges} />
+            <Form
+              onSubmit={(name, email) => {
+                CreateContactMutation.commit(
+                  environment,
+                  name,
+                  email,
+                  data.viewer
                 );
-              })}
-              <form
-                onSubmit={e => {
-                  e.preventDefault();
-                  CreateContactMutation.commit(
-                    environment,
-                    this.state.name,
-                    this.state.email,
-                    props.viewer
-                  );
-                }}>
-                <label>Name</label>
-                <input
-                  type="text"
-                  value={this.state.name}
-                  onChange={this.handleNameChange}
-                />
-                <label>Email</label>
-                <input
-                  type="text"
-                  value={this.state.email}
-                  onChange={this.handleEmailChange}
-                />
-                <button type="submit">Add Contact</button>
-              </form>
-            </div>
-          );
-        }}
-      />
-    );
-  }
-}
+              }}
+            />
+          </div>
+        );
+      }}
+    />
+  );
+};
 
 export default App;
