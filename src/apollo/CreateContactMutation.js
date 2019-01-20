@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import Form from '../components/Form';
 
-import { GET_CONTACTS } from '../App';
+import { GET_CONTACTS } from './Main';
 
 const CREATE_CONTACT = gql`
   mutation createContact($input: ContactInput!) {
