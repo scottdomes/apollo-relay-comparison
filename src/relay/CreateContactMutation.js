@@ -22,7 +22,7 @@ function sharedUpdater(store, viewer, newEdge) {
   const viewerProxy = store.get(viewer.id);
   const conn = ConnectionHandler.getConnection(
     viewerProxy,
-    'RelayApp_allContacts'
+    'Main_allContacts'
   );
   ConnectionHandler.insertEdgeAfter(conn, newEdge);
 }

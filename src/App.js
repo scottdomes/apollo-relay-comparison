@@ -1,12 +1,19 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import ApolloMain from './apollo/Main';
+import RelayMain from './relay/Main';
+
 import './App.css';
 
 const App = () => {
   return (
     <Router>
-      <Route path="/apollo" component={ApolloMain} />
+      <React.Fragment>
+        <Link to="/apollo">Apollo</Link>
+        <Link to="/relay">Relay</Link>
+        <Route path="/apollo" component={ApolloMain} />
+        <Route path="/relay" component={RelayMain} />
+      </React.Fragment>
     </Router>
   );
 };
