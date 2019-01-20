@@ -10,7 +10,7 @@ import './App.css';
 const GET_CONTACTS = graphql`
   query RelayAppQuery {
     viewer {
-      allContacts {
+      allContacts(first: 1000) @connection(key: "RelayApp_allContacts") {
         edges {
           node {
             id

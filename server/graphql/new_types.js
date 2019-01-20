@@ -1,11 +1,13 @@
-const {
+import Cursor from './Cursor';
+import {
   GraphQLObjectType,
   GraphQLNonNull,
   GraphQLList,
   GraphQLString,
   GraphQLID,
+  GraphQLInt,
   GraphQLBoolean
-} = require('graphql');
+} from 'graphql';
 
 export const PageInfo = new GraphQLObjectType({
   name: 'PageInfo',
@@ -15,6 +17,12 @@ export const PageInfo = new GraphQLObjectType({
     },
     hasPreviousPage: {
       type: new GraphQLNonNull(GraphQLBoolean)
+    },
+    startCursor: {
+      type: GraphQLString
+    },
+    endCursor: {
+      type: GraphQLString
     }
   }
 });
@@ -26,7 +34,7 @@ export const Contact = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLID),
       resolve(parent) {
         return parent._id.toString();
-      },
+      }
     },
     name: {
       type: GraphQLString
@@ -40,6 +48,14 @@ export const Contact = new GraphQLObjectType({
 const ContactEdge = new GraphQLObjectType({
   name: 'ContactEdge',
   fields: () => ({
+    cursor: {
+      type: Cursor,
+      resolve(parent) {
+        return {
+          value: parent._id.toString()
+        };
+      }
+    },
     node: {
       type: Contact,
       resolve(parent) {
@@ -52,8 +68,8 @@ const ContactEdge = new GraphQLObjectType({
 export const ContactPayload = new GraphQLObjectType({
   name: 'ContactPayload',
   fields: {
-    contactEdge: {
-      type: ContactEdge
+    contact: {
+      type: Contact
     }
   }
 });
@@ -68,10 +84,21 @@ const ContactConnection = new GraphQLObjectType({
       }
     },
     pageInfo: {
-      type: new GraphQLNonNull(PageInfo)
+      type: PageInfo
     }
   })
 });
+
+export function createConnectionArguments() {
+  return {
+    first: {
+      type: GraphQLInt
+    },
+    last: {
+      type: GraphQLInt
+    }
+  };
+}
 
 export const Viewer = new GraphQLObjectType({
   name: 'Viewer',
@@ -81,6 +108,7 @@ export const Viewer = new GraphQLObjectType({
     },
     allContacts: {
       type: ContactConnection,
+      args: createConnectionArguments(),
       resolve(parent, args, { mongodb }) {
         return {
           query: mongodb.collection('contacts')

@@ -4,7 +4,7 @@ input ContactInput {
 }
 
 type CreateContactPayload {
-  contactEdge: ContactEdge
+  contact: Contact
 }
 
 type Mutation {
@@ -97,7 +97,7 @@ type ContactConnection {
 }
 
 type Viewer {
-  allContacts: ContactConnection
+  allContacts(first: Int, last: Int): ContactConnection
   totalCount: Int
   completedCount: Int
 }

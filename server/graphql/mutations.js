@@ -1,9 +1,6 @@
 import { GraphQLNonNull } from 'graphql';
-import { Contact, ContactPayload } from './new_types';
-
-const contactInputType = require('./types/contactInput');
-
-const ContactModel = require('../models/contact');
+import { ContactPayload } from './new_types';
+import contactInputType from './types/contactInput';
 
 module.exports = {
   createContact: {
@@ -15,15 +12,13 @@ module.exports = {
       }
     },
     async resolve(root, params, { mongodb }) {
-      console.log(params);
-      const newContact = await mongodb
-        .collection('contacts')
-        .insert(params.input);
-      console.log(newContact);
+      const result = await mongodb.collection('contacts').insert(params.input);
+      const newContact = result.ops[0];
+
       if (!newContact) {
         throw new Error('Error adding new blog post');
       }
-      return newContact;
+      return { contact: newContact };
     }
   }
 };
