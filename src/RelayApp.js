@@ -10,6 +10,7 @@ import './App.css';
 const GET_CONTACTS = graphql`
   query RelayAppQuery {
     viewer {
+      id
       allContacts(first: 1000) @connection(key: "RelayApp_allContacts") {
         edges {
           node {
@@ -67,7 +68,8 @@ class App extends Component {
                   CreateContactMutation.commit(
                     environment,
                     this.state.name,
-                    this.state.email
+                    this.state.email,
+                    props.viewer
                   );
                 }}>
                 <label>Name</label>

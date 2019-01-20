@@ -4,7 +4,7 @@ input ContactInput {
 }
 
 type CreateContactPayload {
-  contact: Contact
+  contactEdge: ContactEdge
 }
 
 type Mutation {
@@ -96,7 +96,8 @@ type ContactConnection {
   edges: [ContactEdge]
 }
 
-type Viewer {
+type Viewer implements Node {
+  id: ID!
   allContacts(first: Int, last: Int): ContactConnection
   totalCount: Int
   completedCount: Int

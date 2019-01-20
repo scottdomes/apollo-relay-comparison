@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 004539b1a5f015671838c3f497fb3d4e
+ * @relayHash 8b331b7440481a95f3b90d4ef9f493f3
  */
 
 /* eslint-disable */
@@ -12,6 +12,7 @@ import type { ConcreteRequest } from 'relay-runtime';
 export type RelayAppQueryVariables = {||};
 export type RelayAppQueryResponse = {|
   +viewer: ?{|
+    +id: string,
     +allContacts: ?{|
       +edges: ?$ReadOnlyArray<?{|
         +node: ?{|
@@ -20,7 +21,7 @@ export type RelayAppQueryResponse = {|
           +email: ?string,
         |}
       |}>
-    |}
+    |},
   |}
 |};
 export type RelayAppQuery = {|
@@ -33,6 +34,7 @@ export type RelayAppQuery = {|
 /*
 query RelayAppQuery {
   viewer {
+    id
     allContacts(first: 1000) {
       edges {
         node {
@@ -53,7 +55,14 @@ query RelayAppQuery {
 */
 
 const node/*: ConcreteRequest*/ = (function(){
-var v0 = [
+var v0 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
+  "args": null,
+  "storageKey": null
+},
+v1 = [
   {
     "kind": "LinkedField",
     "alias": null,
@@ -72,13 +81,7 @@ var v0 = [
         "concreteType": "Contact",
         "plural": false,
         "selections": [
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "id",
-            "args": null,
-            "storageKey": null
-          },
+          v0,
           {
             "kind": "ScalarField",
             "alias": null,
@@ -137,7 +140,7 @@ var v0 = [
     ]
   }
 ],
-v1 = [
+v2 = [
   {
     "kind": "Literal",
     "name": "first",
@@ -150,7 +153,7 @@ return {
   "operationKind": "query",
   "name": "RelayAppQuery",
   "id": null,
-  "text": "query RelayAppQuery {\n  viewer {\n    allContacts(first: 1000) {\n      edges {\n        node {\n          id\n          name\n          email\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n    }\n  }\n}\n",
+  "text": "query RelayAppQuery {\n  viewer {\n    id\n    allContacts(first: 1000) {\n      edges {\n        node {\n          id\n          name\n          email\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n    }\n  }\n}\n",
   "metadata": {
     "connection": [
       {
@@ -173,13 +176,14 @@ return {
     "selections": [
       {
         "kind": "LinkedField",
-        "alias": "viewer",
-        "name": "__viewer_viewer",
+        "alias": null,
+        "name": "viewer",
         "storageKey": null,
         "args": null,
         "concreteType": "Viewer",
         "plural": false,
         "selections": [
+          v0,
           {
             "kind": "LinkedField",
             "alias": "allContacts",
@@ -188,7 +192,7 @@ return {
             "args": null,
             "concreteType": "ContactConnection",
             "plural": false,
-            "selections": v0
+            "selections": v1
           }
         ]
       }
@@ -208,40 +212,32 @@ return {
         "concreteType": "Viewer",
         "plural": false,
         "selections": [
+          v0,
           {
             "kind": "LinkedField",
             "alias": null,
             "name": "allContacts",
             "storageKey": "allContacts(first:1000)",
-            "args": v1,
+            "args": v2,
             "concreteType": "ContactConnection",
             "plural": false,
-            "selections": v0
+            "selections": v1
           },
           {
             "kind": "LinkedHandle",
             "alias": null,
             "name": "allContacts",
-            "args": v1,
+            "args": v2,
             "handle": "connection",
             "key": "RelayApp_allContacts",
             "filters": null
           }
         ]
-      },
-      {
-        "kind": "LinkedHandle",
-        "alias": null,
-        "name": "viewer",
-        "args": null,
-        "handle": "viewer",
-        "key": "",
-        "filters": null
       }
     ]
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '52d68b8d217666449a851aafaaef6f1d';
+(node/*: any*/).hash = 'a26e25d0c3d89d64852cd212e309a803';
 module.exports = node;

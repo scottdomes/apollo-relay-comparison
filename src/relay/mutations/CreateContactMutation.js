@@ -5,22 +5,30 @@ import { ConnectionHandler } from 'relay-runtime';
 const mutation = graphql`
   mutation CreateContactMutation($input: ContactInput!) {
     createContact(input: $input) {
-      contact {
-        id
-        email
-        name
+      contactEdge {
+        __typename
+        cursor
+        node {
+          id
+          email
+          name
+        }
       }
     }
   }
 `;
 
-function sharedUpdater(store, newEdge) {
-  console.log(store, newEdge);
-  const conn = ConnectionHandler.getConnection(store, 'RelayApp_allContacts');
+function sharedUpdater(store, viewer, newEdge) {
+  console.log(newEdge);
+  const viewerProxy = store.get(viewer.id);
+  const conn = ConnectionHandler.getConnection(
+    viewerProxy,
+    'RelayApp_allContacts'
+  );
   ConnectionHandler.insertEdgeAfter(conn, newEdge);
 }
 
-function commit(environment, name, email) {
+function commit(environment, name, email, viewer) {
   // Now we just call commitMutation with the appropriate parameters
   return commitMutation(environment, {
     mutation,
@@ -31,9 +39,10 @@ function commit(environment, name, email) {
       }
     },
     updater: (store, data) => {
+      console.log(store.getRootField('createContact'));
       const payload = store.getRootField('createContact');
-      const newEdge = payload.getLinkedRecord('contact');
-      sharedUpdater(store, newEdge);
+      const newEdge = payload.getLinkedRecord('contactEdge');
+      sharedUpdater(store, viewer, newEdge);
     }
   });
 }

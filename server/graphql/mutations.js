@@ -18,7 +18,7 @@ module.exports = {
       if (!newContact) {
         throw new Error('Error adding new blog post');
       }
-      return { contact: newContact };
+      return { contactEdge: newContact };
     }
   }
 };

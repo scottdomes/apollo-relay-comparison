@@ -68,8 +68,8 @@ const ContactEdge = new GraphQLObjectType({
 export const ContactPayload = new GraphQLObjectType({
   name: 'ContactPayload',
   fields: {
-    contact: {
-      type: Contact
+    contactEdge: {
+      type: ContactEdge
     }
   }
 });
