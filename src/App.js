@@ -9,8 +9,6 @@ const App = () => {
   return (
     <Router>
       <React.Fragment>
-        <Link to="/apollo">Apollo</Link>
-        <Link to="/relay">Relay</Link>
         <Route path="/apollo" component={ApolloMain} />
         <Route path="/relay" component={RelayMain} />
       </React.Fragment>

@@ -1,5 +1,6 @@
 import React from 'react';
 import ApolloClient from 'apollo-boost';
+import { Link } from 'react-router-dom';
 import { ApolloProvider, Query } from 'react-apollo';
 import ContactList from '../components/ContactList';
 import CreateContactMutation from './CreateContactMutation';
@@ -27,23 +28,24 @@ const client = new ApolloClient({
 
 const Main = () => {
   return (
-    <ApolloProvider client={client}>
-      <div className="App">
+    <div className="Main">
+      <Link to="/relay" className="switch">Switch to Relay</Link>
+      <ApolloProvider client={client}>
         <Query query={GET_CONTACTS}>
           {({ data, loading, error, refetch }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>ERROR</p>;
 
             return (
-              <div>
+              <div className="container">
                 <ContactList edges={data.viewer.allContacts.edges} />
                 <CreateContactMutation />
               </div>
             );
           }}
         </Query>
-      </div>
-    </ApolloProvider>
+      </ApolloProvider>
+    </div>
   );
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { QueryRenderer } from 'react-relay';
+import { Link } from 'react-router-dom';
 import environment from './environment';
 import graphql from 'babel-plugin-relay/macro';
 import CreateContactMutation from './CreateContactMutation';
@@ -25,35 +26,39 @@ const GET_CONTACTS = graphql`
 
 const Main = () => {
   return (
-    <QueryRenderer
-      environment={environment}
-      query={GET_CONTACTS}
-      variables={{}}
-      render={({ error, props }) => {
-        if (error) {
-          return <div>Error!</div>;
-        }
-        if (!props) {
-          return <div>Loading...</div>;
-        }
+    <div className="Main">
+      <Link to="/apollo" className="switch">Switch to Apollo</Link>
 
-        return (
-          <div>
-            <ContactList edges={props.viewer.allContacts.edges} />
-            <Form
-              onSubmit={(name, email) => {
-                CreateContactMutation.commit(
-                  environment,
-                  name,
-                  email,
-                  props.viewer
-                );
-              }}
-            />
-          </div>
-        );
-      }}
-    />
+      <QueryRenderer
+        environment={environment}
+        query={GET_CONTACTS}
+        variables={{}}
+        render={({ error, props }) => {
+          if (error) {
+            return <div>Error!</div>;
+          }
+          if (!props) {
+            return <div>Loading...</div>;
+          }
+
+          return (
+            <div className="container">
+              <ContactList edges={props.viewer.allContacts.edges} />
+              <Form
+                onSubmit={(name, email) => {
+                  CreateContactMutation.commit(
+                    environment,
+                    name,
+                    email,
+                    props.viewer
+                  );
+                }}
+              />
+            </div>
+          );
+        }}
+      />
+    </div>
   );
 };
 
