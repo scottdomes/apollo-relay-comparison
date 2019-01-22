@@ -7,7 +7,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  background: linear-gradient(to bottom, #fd8271, #a62824);
+  background: linear-gradient(to bottom, #a62824, #fd8271);
   color: #2f2f2f;
   overflow: hidden;
   margin: 0 8px;
@@ -27,11 +27,36 @@ body {
 .container {
   height: 100%;
   max-width: 500px;
+  min-width: 300px;
   background-color: white;
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
   flex: 1;
+  position: relative;
+  padding-bottom: 150px;
+  box-sizing: border-box;
+}
+
+form {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 2px solid #e6e6e6;
+  padding: 10px;
+}
+
+form button {
+  margin-top: 10px;
+}
+
+form p {
+  text-align: center;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 .switch {
@@ -40,83 +65,10 @@ body {
   text-align: center;
   display: block;
   margin: 10px 0;
+  font-weight: bold;
 }
 
 .ContactList {
-  height: 80%;
-  overflow: auto;
-}
-
-#links {
-  display: flex;
-  padding: 10px 0;
-}
-
-#links a {
-  margin: 0 10px;
-  color: white;
-}
-
-#Header {
-  width: 100%;
-  height: 50px;
-}
-#Header img {
-  width: 35px;
-  height: 35px;
-  float: left;
-}
-#Header button.red {
-  float: right;
-  margin-top: 5px;
-}
-#Header h1 {
-  display: inline-block;
-  float: left;
-  margin-left: 10px;
-  font-size: 1.1em;
-  margin-top: 7px;
-}
-#ChatContainer {
-  position: relative;
-  padding-bottom: 50px;
-}
-
-#loading-container {
-  display: flex;
   height: 100%;
-  justify-content: center;
-  align-items: center;
-}
-#loading-container img,
-#test-image {
-  width: 100px;
-  -webkit-animation-name: pulse;
-  animation-name: pulse;
-  animation-duration: 1000ms;
-  transform-origin: 70% 70%;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-@-webkit-keyframes pulse {
-  0% {
-    -webkit-transform: scale(1);
-  }
-  50% {
-    -webkit-transform: scale(1.2);
-  }
-  100% {
-    -webkit-transform: scale(1);
-  }
-}
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
+  overflow: auto;
 }

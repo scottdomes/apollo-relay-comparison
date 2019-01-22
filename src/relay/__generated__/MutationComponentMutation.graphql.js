@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash ad82aa3d0282cc817e69826588ed4878
+ * @relayHash a97a4b722d5012e44976261409054b2b
  */
 
 /* eslint-disable */
@@ -13,10 +13,10 @@ export type ContactInput = {
   name: string,
   email?: ?string,
 };
-export type CreateContactMutationVariables = {|
+export type MutationComponentMutationVariables = {|
   input: ContactInput
 |};
-export type CreateContactMutationResponse = {|
+export type MutationComponentMutationResponse = {|
   +createContact: ?{|
     +contactEdge: ?{|
       +__typename: string,
@@ -29,15 +29,15 @@ export type CreateContactMutationResponse = {|
     |}
   |}
 |};
-export type CreateContactMutation = {|
-  variables: CreateContactMutationVariables,
-  response: CreateContactMutationResponse,
+export type MutationComponentMutation = {|
+  variables: MutationComponentMutationVariables,
+  response: MutationComponentMutationResponse,
 |};
 */
 
 
 /*
-mutation CreateContactMutation(
+mutation MutationComponentMutation(
   $input: ContactInput!
 ) {
   createContact(input: $input) {
@@ -143,13 +143,13 @@ v1 = [
 return {
   "kind": "Request",
   "operationKind": "mutation",
-  "name": "CreateContactMutation",
+  "name": "MutationComponentMutation",
   "id": null,
-  "text": "mutation CreateContactMutation(\n  $input: ContactInput!\n) {\n  createContact(input: $input) {\n    contactEdge {\n      __typename\n      cursor\n      node {\n        id\n        email\n        name\n      }\n    }\n  }\n}\n",
+  "text": "mutation MutationComponentMutation(\n  $input: ContactInput!\n) {\n  createContact(input: $input) {\n    contactEdge {\n      __typename\n      cursor\n      node {\n        id\n        email\n        name\n      }\n    }\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
-    "name": "CreateContactMutation",
+    "name": "MutationComponentMutation",
     "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": v0,
@@ -157,12 +157,12 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "CreateContactMutation",
+    "name": "MutationComponentMutation",
     "argumentDefinitions": v0,
     "selections": v1
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'ba7580e185c4e2652c9834d5bfa2b13c';
+(node/*: any*/).hash = '7f25554a943ee2f1a5a36576d3509ca2';
 module.exports = node;

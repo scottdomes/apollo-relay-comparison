@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 7d0f2e7df49e6114ad0f718262adf552
+ * @relayHash 12872a9bdabad706d74e0a2a2ff081ea
  */
 
 /* eslint-disable */
@@ -9,8 +9,8 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type MainQueryVariables = {||};
-export type MainQueryResponse = {|
+export type queryQueryVariables = {||};
+export type queryQueryResponse = {|
   +viewer: ?{|
     +id: string,
     +allContacts: ?{|
@@ -24,15 +24,15 @@ export type MainQueryResponse = {|
     |},
   |}
 |};
-export type MainQuery = {|
-  variables: MainQueryVariables,
-  response: MainQueryResponse,
+export type queryQuery = {|
+  variables: queryQueryVariables,
+  response: queryQueryResponse,
 |};
 */
 
 
 /*
-query MainQuery {
+query queryQuery {
   viewer {
     id
     allContacts(first: 1000) {
@@ -151,9 +151,9 @@ v2 = [
 return {
   "kind": "Request",
   "operationKind": "query",
-  "name": "MainQuery",
+  "name": "queryQuery",
   "id": null,
-  "text": "query MainQuery {\n  viewer {\n    id\n    allContacts(first: 1000) {\n      edges {\n        node {\n          id\n          name\n          email\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n    }\n  }\n}\n",
+  "text": "query queryQuery {\n  viewer {\n    id\n    allContacts(first: 1000) {\n      edges {\n        node {\n          id\n          name\n          email\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n    }\n  }\n}\n",
   "metadata": {
     "connection": [
       {
@@ -169,7 +169,7 @@ return {
   },
   "fragment": {
     "kind": "Fragment",
-    "name": "MainQuery",
+    "name": "queryQuery",
     "type": "Query",
     "metadata": null,
     "argumentDefinitions": [],
@@ -200,7 +200,7 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "MainQuery",
+    "name": "queryQuery",
     "argumentDefinitions": [],
     "selections": [
       {
@@ -239,5 +239,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '309d2d894f0527f3c7e90186b72c96d6';
+(node/*: any*/).hash = 'e30cad2e6f182f40623ab451f3776188';
 module.exports = node;

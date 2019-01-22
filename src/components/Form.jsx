@@ -19,6 +19,7 @@ export default class Form extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
+        <p>Add Contact</p>
         <label>Name</label>
         <input
           type="text"
