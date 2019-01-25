@@ -19,7 +19,7 @@ const CREATE_CONTACT = gql`
   }
 `;
 
-const CreateContactMutation = () => {
+const MutationComponent = () => {
   return (
     <Mutation mutation={CREATE_CONTACT} update={updateLocalStore}>
       {(create, { data }) => (
@@ -40,4 +40,4 @@ const CreateContactMutation = () => {
   );
 };
 
-export default CreateContactMutation;
+export default MutationComponent;

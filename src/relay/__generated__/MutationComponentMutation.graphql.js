@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash a97a4b722d5012e44976261409054b2b
+ * @relayHash a67890b5967884c3bd83c9e8782eeada
  */
 
 /* eslint-disable */
@@ -19,13 +19,11 @@ export type MutationComponentMutationVariables = {|
 export type MutationComponentMutationResponse = {|
   +createContact: ?{|
     +contactEdge: ?{|
-      +__typename: string,
-      +cursor: string,
       +node: ?{|
         +id: string,
         +email: ?string,
         +name: string,
-      |},
+      |}
     |}
   |}
 |};
@@ -42,8 +40,6 @@ mutation MutationComponentMutation(
 ) {
   createContact(input: $input) {
     contactEdge {
-      __typename
-      cursor
       node {
         id
         email
@@ -90,20 +86,6 @@ v1 = [
         "plural": false,
         "selections": [
           {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "__typename",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "cursor",
-            "args": null,
-            "storageKey": null
-          },
-          {
             "kind": "LinkedField",
             "alias": null,
             "name": "node",
@@ -145,7 +127,7 @@ return {
   "operationKind": "mutation",
   "name": "MutationComponentMutation",
   "id": null,
-  "text": "mutation MutationComponentMutation(\n  $input: ContactInput!\n) {\n  createContact(input: $input) {\n    contactEdge {\n      __typename\n      cursor\n      node {\n        id\n        email\n        name\n      }\n    }\n  }\n}\n",
+  "text": "mutation MutationComponentMutation(\n  $input: ContactInput!\n) {\n  createContact(input: $input) {\n    contactEdge {\n      node {\n        id\n        email\n        name\n      }\n    }\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -164,5 +146,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '7f25554a943ee2f1a5a36576d3509ca2';
+(node/*: any*/).hash = 'e581d7918bb30089be0919dd05f119be';
 module.exports = node;

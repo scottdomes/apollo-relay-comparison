@@ -9,8 +9,6 @@ const mutation = graphql`
   mutation MutationComponentMutation($input: ContactInput!) {
     createContact(input: $input) {
       contactEdge {
-        __typename
-        cursor
         node {
           id
           email
@@ -21,7 +19,7 @@ const mutation = graphql`
   }
 `;
 
-function commit(environment, name, email, viewer) {
+function commit(name, email, viewer) {
   return commitMutation(environment, {
     mutation,
     variables: {
@@ -38,7 +36,7 @@ const MutationComponent = ({ viewer }) => {
   return (
     <Form
       onSubmit={(name, email) => {
-        commit(environment, name, email, viewer);
+        commit(name, email, viewer);
       }}
     />
   );

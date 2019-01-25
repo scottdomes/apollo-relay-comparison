@@ -8,7 +8,6 @@ const QueryComponent = ({ children }) => {
     <QueryRenderer
       environment={environment}
       query={GET_CONTACTS}
-      variables={{}}
       render={({ error, props }) => {
         if (error) {
           return <div>Error!</div>;
